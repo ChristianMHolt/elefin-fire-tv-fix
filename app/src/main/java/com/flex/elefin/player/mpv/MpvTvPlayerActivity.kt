@@ -1194,9 +1194,8 @@ private fun writeMpvTvConfig(dir: File) {
         msg-level=all=warn
 
         # --- Video Output ---
-        vo=gpu
-        gpu-context=android
-        hwdec=mediacodec-copy
+        vo=mediacodec_embed
+        hwdec=mediacodec
         
         # Instant Start Optimization
         cache-pause=no
@@ -1218,8 +1217,8 @@ private fun writeMpvTvConfig(dir: File) {
 
         [trailer]
         profile=default
-        hwdec=mediacodec-copy
-        vo=gpu
+        hwdec=mediacodec
+        vo=mediacodec_embed
         scale=bilinear
         dither=no
         interpolation=no
