@@ -23,11 +23,11 @@ class MPVView(context: Context, attrs: AttributeSet? = null) : SurfaceView(conte
     
     companion object {
         private const val TAG = "MPVView"
-        private const val HWDECS = "mediacodec,mediacodec-copy"
+        private const val HWDECS = "mediacodec"
     }
 
     private var filePath: String? = null
-    private var voInUse: String = "gpu"
+    private var voInUse: String = "mediacodec_embed"
     private var httpHeaders: String? = null
     private var isInitialized = false
 
@@ -171,10 +171,11 @@ class MPVView(context: Context, attrs: AttributeSet? = null) : SurfaceView(conte
             MPVLib.setOptionString("display-fps-override", refreshRate.toString())
         }
 
-        // GPU context for Android - CRITICAL for subtitle rendering
-        MPVLib.setOptionString("gpu-context", "android")
-        MPVLib.setOptionString("gpu-api", "opengl")  // Required for libass subtitle overlay
-        MPVLib.setOptionString("opengl-es", "yes")
+        // GPU context for Android
+        // Bypassed for direct playing without fake HDR/OpenGL ES processing
+        // MPVLib.setOptionString("gpu-context", "android")
+        // MPVLib.setOptionString("gpu-api", "opengl")
+        // MPVLib.setOptionString("opengl-es", "yes")
 
         // TLS settings - allow self-signed certs for local servers
         MPVLib.setOptionString("tls-verify", "no")
